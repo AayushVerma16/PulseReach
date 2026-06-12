@@ -1,26 +1,705 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ========================================
+   PulseReach — Design System
+   Core tokens and variables
+   ======================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #0a0e1a;
+  --color-foreground: #f1f5f9;
+  --color-surface: #111827;
+  --color-elevated: #1e293b;
+  --color-border: #1e293b;
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c3aed;
+  --color-cyan: #06b6d4;
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-rose: #ef4444;
+
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --font-sans: "Inter", var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ========================================
+   Base Styles
+   ======================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* ========================================
+   Glassmorphism Utilities
+   ======================================== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.08);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(139, 92, 246, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes typing-dot {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes barGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-count-up {
+  animation: countUp 0.6s ease-out forwards;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Recharts tooltip override */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.recharts-default-tooltip {
+  background: rgba(26, 31, 46, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+}
+
+/* ========================================
+   Status Badge Colors
+   ======================================== */
+
+.status-queued { color: #94a3b8; background: rgba(148, 163, 184, 0.1); }
+.status-sending { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+.status-sent { color: #06b6d4; background: rgba(6, 182, 212, 0.1); }
+.status-delivered { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+.status-opened { color: #8b5cf6; background: rgba(139, 92, 246, 0.1); }
+.status-clicked { color: #ec4899; background: rgba(236, 72, 153, 0.1); }
+.status-failed { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+.status-completed { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+.status-draft { color: #64748b; background: rgba(100, 116, 139, 0.1); }
+
+/* ========================================
+   Chat Bubbles
+   ======================================== */
+
+.chat-user {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  color: white;
+  border-radius: 1.5rem 1.5rem 4px 1.5rem;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+}
+
+.chat-assistant {
+  background: rgba(15, 17, 23, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f1f5f9;
+  border-radius: 1.5rem 1.5rem 1.5rem 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  animation: typing-dot 1.4s infinite;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ========================================
+   Scrollbar Custom
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   Gradient text
+   ======================================== */
+
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   Sidebar
+   ======================================== */
+
+/* No custom CSS needed — all sidebar styling is handled
+   via Tailwind utility classes directly in the component. */
+
+/* ========================================
+   Table styles
+   ======================================== */
+
+.data-table th {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.875rem;
+}
+
+.data-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ========================================
+   Input styles
+   ======================================== */
+
+.input-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #f1f5f9;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-dark:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.input-dark::placeholder {
+  color: #475569;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out both;
+}
+
+/* ========================================
+   AI Copilot — Page Animations
+   ======================================== */
+
+/* Floating / breathing effect for the hero icon */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Expanding pulse ring behind the icon */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-out infinite;
+}
+
+/* Staggered reveal — fades in from below */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-reveal-up {
+  opacity: 0;
+  animation: reveal-up 0.5s ease-out forwards;
+}
+
+/* Gradient text shimmer that sweeps across */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Gentle glow pulse on icon */
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(139,92,246,0.4)); }
+  50% { filter: drop-shadow(0 0 24px rgba(139,92,246,0.7)); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Smooth message entrance from left */
+@keyframes msg-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Smooth message entrance from right */
+@keyframes msg-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-msg-left {
+  animation: msg-in-left 0.35s ease-out both;
+}
+
+.animate-msg-right {
+  animation: msg-in-right 0.35s ease-out both;
+}
+
+/* Orbit animation for decorative dots */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+.animate-orbit {
+  animation: orbit 12s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit 16s linear infinite reverse;
+}
+
+/* ========================================
+   AI Copilot — Enhanced Page Styles
+   ======================================== */
+
+/* Animated grid background */
+.copilot-grid-bg {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+}
+
+/* Ambient blob morph for hero section */
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translate(10px, -10px) scale(1.05);
+  }
+  50% {
+    border-radius: 50% 60% 30% 60% / 30% 50% 70% 60%;
+    transform: translate(-5px, 10px) scale(0.98);
+  }
+  75% {
+    border-radius: 60% 30% 50% 40% / 70% 40% 60% 30%;
+    transform: translate(5px, 5px) scale(1.02);
+  }
+}
+
+.animate-blob-morph {
+  animation: blob-morph 12s ease-in-out infinite;
+}
+
+.animate-blob-morph-delayed {
+  animation: blob-morph 14s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* Spotlight sweep behind the hero */
+@keyframes spotlight-sweep {
+  0% { opacity: 0; transform: translateX(-200%) rotate(-45deg); }
+  30% { opacity: 0.15; }
+  70% { opacity: 0.15; }
+  100% { opacity: 0; transform: translateX(200%) rotate(-45deg); }
+}
+
+.animate-spotlight {
+  animation: spotlight-sweep 8s ease-in-out infinite;
+}
+
+/* Stagger-scale-in for prompt cards */
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-card-enter {
+  opacity: 0;
+  animation: card-enter 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Typing cursor blink for streaming text */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.streaming-cursor::after {
+  content: '▎';
+  color: #8b5cf6;
+  animation: cursor-blink 1s step-end infinite;
+  margin-left: 1px;
+}
+
+/* Tool card expand animation */
+@keyframes tool-expand {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: scaleY(0.8);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: scaleY(1);
+  }
+}
+
+.animate-tool-expand {
+  animation: tool-expand 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  transform-origin: top;
+}
+
+/* Progress bar animation for tool loading */
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.tool-progress-bar {
+  position: relative;
+  overflow: hidden;
+  height: 2px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 2px;
+}
+
+.tool-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+  border-radius: 2px;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+/* Keyboard shortcut badge */
+.kbd-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(148, 163, 184, 0.7);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Message bubble hover lift */
+.msg-bubble {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.msg-bubble:hover {
+  transform: translateY(-1px);
+}
+
+/* Smooth border glow for focused input */
+@keyframes border-glow {
+  0%, 100% {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.08);
+  }
+  50% {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+  }
+}
+
+.input-focused-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* Markdown prose styles for AI responses */
+.ai-prose {
+  font-size: 14.5px;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+.ai-prose p {
+  margin-bottom: 0.75em;
+}
+
+.ai-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.ai-prose strong {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.ai-prose ul, .ai-prose ol {
+  padding-left: 1.25em;
+  margin: 0.5em 0;
+}
+
+.ai-prose li {
+  margin: 0.25em 0;
+}
+
+.ai-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.1);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.ai-prose pre {
+  margin: 0.75em 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+}
+
+.ai-prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #e2e8f0;
+}
+
+/* Header animated underline */
+@keyframes header-line-expand {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.header-line {
+  transform-origin: left;
+  animation: header-line-expand 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Subtle noise texture overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Timestamp tooltip */
+.timestamp-tooltip {
+  position: relative;
+}
+
+.timestamp-tooltip::before {
+  content: attr(data-time);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 4px 8px;
+  font-size: 10px;
+  color: #94a3b8;
+  background: rgba(15, 17, 23, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.timestamp-tooltip:hover::before {
+  opacity: 1;
 }
