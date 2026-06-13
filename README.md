@@ -1,204 +1,105 @@
 # PulseReach 🚀
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-Blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![Prisma](https://img.shields.io/badge/Prisma-ORM-green)
-![OpenRouter](https://img.shields.io/badge/OpenRouter-AI-purple)
-![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)
-
-An AI-Native Customer Engagement CRM that helps marketers identify the right audience, create personalized campaigns using AI, simulate communication delivery, and track campaign performance through a unified dashboard.
+An AI-Native Customer Engagement CRM that enables businesses to manage customers, build intelligent audience segments, create AI-powered marketing campaigns, and track communication performance through a unified platform.
 
 ## 🌐 Live Demo
 
-https://pulse-reach.vercel.app
+https://pulse-reach-green.vercel.app
+
+## ✨ Highlights
+
+* AI-powered campaign creation using natural language
+* Intelligent audience segmentation based on customer behavior
+* Customer and order management
+* Multi-channel campaign simulation
+* Communication lifecycle tracking
+* Campaign analytics and engagement insights
+* Google OAuth authentication
 
 ---
 
-## 🌟 Overview
+## 📌 Overview
 
-PulseReach is an AI-native customer engagement platform designed to help businesses manage customer relationships and run intelligent marketing campaigns.
+PulseReach combines customer data management, audience segmentation, campaign execution, and analytics into a single AI-native workflow.
 
-The platform combines customer management, audience segmentation, AI-powered campaign creation, communication tracking, and analytics into a single workflow. Marketers can interact with the system using natural language to create targeted campaigns and generate personalized content more efficiently.
-
----
-
-## ✨ Features
-
-### 👥 Customer Management
-
-* Manage customer profiles and purchase history
-* Import customer data through CSV uploads
-* Store customer attributes and engagement data
-
-### 🎯 Audience Segmentation
-
-* Create dynamic customer segments
-* Filter audiences based on customer behavior and attributes
-* Preview matching customers before launching campaigns
-
-### 🤖 AI-Powered Campaign Creation
-
-* Create campaigns using natural language
-* Generate personalized campaign messages
-* AI-assisted audience targeting
-* Automated campaign workflow generation
-
-### 📢 Campaign Management
-
-* Create and manage campaigns
-* Associate campaigns with customer segments
-* Track campaign execution and status
-
-### 📨 Simulated Channel Service
-
-* Models real-world communication workflows
-* Simulates communication lifecycle events:
-
-  * Sent
-  * Delivered
-  * Opened
-  * Clicked
-  * Failed
-
-### 📊 Analytics Dashboard
-
-* Campaign performance tracking
-* Delivery and engagement analytics
-* Communication lifecycle monitoring
-* Customer engagement insights
+Instead of manually creating audiences and marketing campaigns, users can simply describe their objective in natural language, allowing the AI assistant to help with audience targeting, campaign creation, and message generation.
 
 ---
 
-## 🤖 Why AI-Native?
-
-PulseReach is built around natural language interactions.
-
-Instead of manually creating audience segments and campaigns, marketers can simply describe their objective, and the AI assists with:
-
-* Audience Selection
-* Campaign Creation
-* Personalized Message Generation
-* Marketing Workflow Automation
-
-This creates a faster and more intuitive customer engagement experience.
-
----
-
-## 🏗️ System Architecture
+## 🏗️ Architecture
 
 ```text
-                    ┌─────────────────┐
-                    │     Marketer    │
-                    │   PulseReach    │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │   Next.js App   │
-                    │ Dashboard & UI  │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │   API Routes    │
-                    │ (Backend Layer) │
-                    └────────┬────────┘
-                             │
-       ┌─────────────────────┼─────────────────────┐
-       │                     │                     │
-       ▼                     ▼                     ▼
+User
+ │
+ ▼
+Next.js Application
+ │
+ ├── Customer Management
+ ├── Segmentation Engine
+ ├── AI Assistant
+ ├── Campaign Engine
+ │
+ ▼
+Prisma ORM
+ │
+ ▼
+PostgreSQL
 
-┌──────────────┐   ┌────────────────┐   ┌────────────────┐
-│ Segmentation │   │   AI Engine    │   │ Campaign Engine│
-│    Engine    │   │   OpenRouter   │   │ & Dispatcher   │
-└──────┬───────┘   └────────────────┘   └──────┬─────────┘
-       │                                        │
-       ▼                                        ▼
-
-┌─────────────────┐                 ┌─────────────────┐
-│ PostgreSQL DB   │                 │ Channel Service │
-│     Prisma      │                 │  (Simulation)   │
-└─────────────────┘                 └────────┬────────┘
-                                              │
-                                              ▼
-                                    ┌─────────────────┐
-                                    │ Delivery Events │
-                                    │ Analytics Data  │
-                                    └────────┬────────┘
-                                             │
-                                             ▼
-                                    ┌─────────────────┐
-                                    │ Analytics & KPI │
-                                    │    Dashboard    │
-                                    └─────────────────┘
+Campaign Engine
+ │
+ ▼
+Channel Service (Simulation)
+ │
+ ▼
+Analytics Dashboard
 ```
 
 ---
 
 ## ⚙️ Tech Stack
 
-### Frontend
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
-
-### Backend
-
-* Next.js API Routes
-* Prisma ORM
-
-### Database
-
-* PostgreSQL
-
-### Authentication
-
-* NextAuth
-* Google OAuth
-
-### AI Integration
-
-* OpenRouter
-
-### Deployment
-
-* Vercel
+| Layer          | Technology                 |
+| -------------- | -------------------------- |
+| Frontend       | Next.js, React, TypeScript |
+| UI             | Tailwind CSS, shadcn/ui    |
+| Backend        | Next.js API Routes         |
+| Database       | PostgreSQL                 |
+| ORM            | Prisma                     |
+| Authentication | NextAuth, Google OAuth     |
+| AI             | OpenRouter                 |
+| Deployment     | Vercel                     |
 
 ---
 
-## 📂 Core Modules
+## 🚀 Key Features
 
 ### Customer Management
 
-Handles customer profiles, customer data ingestion, and purchase history management.
+Manage customer profiles, purchase history, and engagement data.
 
-### Segmentation Engine
+### Audience Segmentation
 
-Converts audience rules into database queries and identifies matching customers.
+Create dynamic customer segments using behavioral and demographic filters.
 
 ### AI Assistant
 
-Supports natural language campaign creation, audience targeting, and message generation.
+Generate campaigns and marketing messages using natural language.
 
-### Campaign Engine
+### Campaign Management
 
-Creates, manages, and executes marketing campaigns.
+Create, manage, and monitor marketing campaigns.
 
-### Channel Service
+### Communication Tracking
 
-Simulates communication delivery and engagement tracking.
+Simulate message delivery events including sent, delivered, opened, clicked, and failed.
 
 ### Analytics Dashboard
 
-Tracks campaign performance and customer engagement metrics.
+Monitor campaign performance and customer engagement metrics.
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Local Setup
 
 ### Clone Repository
 
@@ -215,8 +116,6 @@ npm install
 
 ### Configure Environment Variables
 
-Create a `.env` file:
-
 ```env
 DATABASE_URL=
 
@@ -229,36 +128,28 @@ NEXTAUTH_URL=
 OPENROUTER_API_KEY=
 ```
 
-### Setup Database
+### Database Setup
 
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
-### Run Development Server
+### Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Application will be available at:
-
-```text
-http://localhost:3000
-```
-
 ---
 
-## 🔮 Future Enhancements
+## 🔮 Future Improvements
 
 * Real messaging provider integrations
+* Queue-based campaign processing
 * Advanced customer analytics
-* Multi-tenant support
-* Event-driven campaign processing
-* Queue-based message delivery
-* AI-powered campaign optimization
 * Predictive audience recommendations
+* AI-powered campaign optimization
 
 ---
 
@@ -266,8 +157,4 @@ http://localhost:3000
 
 **Aayush Verma**
 
-GitHub:
-https://github.com/AayushVerma16
-
-LinkedIn:
-https://www.linkedin.com/
+GitHub: https://github.com/AayushVerma16
